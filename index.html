@@ -1,64 +1,286 @@
-Aplikasi Kreatif AI ✨
-Jelajahi potensi AI untuk membantu Anda menulis dan berkreasi.
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Web Baru Saya - Kreator & Pengubah Teks AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Adjust to flex-start for better content flow */
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 20px; /* Space between containers */
+        }
+        h1 {
+            color: #2563eb; /* Tailwind blue-600 */
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+        }
+        h2 {
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.75rem; /* text-3xl */
+            font-weight: 600; /* font-semibold */
+        }
+        textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db; /* Tailwind gray-300 */
+            resize: vertical;
+            min-height: 120px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        select {
+            min-height: auto; /* Override min-height for select */
+            height: auto;
+            appearance: none; /* Remove default arrow */
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3e%3cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%234B5563' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5em 1.5em;
+        }
+        button {
+            background-color: #2563eb; /* Tailwind blue-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600; /* font-semibold */
+            transition: background-color 0.2s ease-in-out;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.5rem; /* Space above button */
+        }
+        button:hover {
+            background-color: #1d4ed8; /* Tailwind blue-700 */
+        }
+        .loading-indicator {
+            display: none;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #4b5563; /* Tailwind gray-600 */
+        }
+        .generated-text-box {
+            background-color: #f9fafb; /* Tailwind gray-50 */
+            border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            min-height: 100px;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            word-wrap: break-word; /* Break long words */
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #374151; /* Tailwind gray-700 */
+        }
+        .error-message {
+            color: #dc2626; /* Tailwind red-600 */
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aplikasi Kreatif AI ✨</h1>
+        <p class="text-gray-700 mb-6 text-center">Jelajahi potensi AI untuk membantu Anda menulis dan berkreasi.</p>
+        <!-- Logo Section -->
+        <!-- Ini adalah tempat Anda akan mengganti URL gambar logo Anda -->
+        <img src="https://drive.google.com/file/d/1-Rruv7WlEIYPNwiJI_DM2BVY698XsXm2/view?usp=drive_link/F5DEB3/A0522D?text=Logo" alt="https://drive.google.com/file/d/1frMu3zeiz8P77Mx7JUBbNkrP_injhdrN/view?usp=sharing" class="mx-auto mb-8 rounded-full shadow-lg">
+        <!-- Akhir Logo Section -->
+    </div>
 
-Kreator Teks ✨
-Masukkan ide Anda atau awal cerita, dan AI akan membantu mengembangkannya!
+    <div class="container">
+        <h2>Kreator Teks ✨</h2>
+        <p class="text-gray-700 mb-4 text-center">Masukkan ide Anda atau awal cerita, dan AI akan membantu mengembangkannya!</p>
+        <textarea id="promptInput" placeholder="Contoh: 'Seekor kucing petualang menemukan peta harta karun kuno di loteng...'" rows="5"></textarea>
+        <button id="generateButton">Hasilkan Teks</button>
+        <div id="loadingIndicator" class="loading-indicator text-center">Memuat...</div>
+        <div id="errorMessage" class="error-message text-center"></div>
+        <div id="generatedTextBox" class="generated-text-box">
+            Teks yang dihasilkan akan muncul di sini.
+        </div>
+    </div>
 
-Description:
-"SALAM BUDAYA"
-PAMISMOYO dari sebuah kata dari bahasa "Shona" di kawasan benua Africa,yang berarti"didalam Hati".Juga menyandur tokoh ponokawan Semar yang jg bernama "ISMOYO".
-Sebuah nama sanggar seni "PAMISMOYO",harapan kami dalam berkarya seni sebuah sanggar ini senantiasa tumbuh dari dalam hati.Tulus ikhlas berpikir,ikhlas berkarya,berdasarkan rasa cinta kasih.Dari dalam hati (PAMISMOYO)
-Memetik sebagian kecil dari sebagian besar ajaran,makna,symbol, Tokoh Ponokawan semar( ISMOYO).Semar"ISMOYO" sebagai pemomong kawulo alit sekaligus juga sbg pemomong pandawa bahkan dalam situasi tertentu menjadi dewa, memotivasi kami dalam berkesenian agar kami bisa melayani dari berbagai kalangan,berbagai golongan. namun tetap berpegang teguh terhadap unggah-ungguh, adat yg
-disertai adab,etika ,moral,kemanusiaan yg berlandaskan KETUHANAN YANG MAHA ESA.
-Dalam sebuah kalimat "PAMISMOYO" kami berharap " Nyumareke Semar didalam hati dalam berkarya seni ".
-JATI merupan penggalan dr kalurahan jatisarono. dimana secara geografi tempat sanggar kami berada. dan juga kami pahami "jati" adalah penggalian makna dari dalam diri sendiri untuk memaknai sesuatu yang dari luar diri sendiri, namun tetap berlandaskan iman dan takwa kepada KETUHANAN YANG MAHA ESA.
-Demikian mohon sependek, sedangkal kemampuan kami untuk
-mendeskrepsikan " PAMISMOYO" mohon doa restu , mohon dukungan,bimbingan,kritik dan saranya.kami ucapkan terima kasih atas bantuan dan dukunganya
-."SALAM BUDAYA"
-Hasilkan Teks
-Here's a summary and explanation of the provided text about the "PAMISMOYO" art studio:
+    <div class="container mt-8">
+        <h2>Pengubah Nada Teks ✨</h2>
+        <p class="text-gray-700 mb-4 text-center">Tempelkan teks Anda di sini dan pilih nada yang diinginkan untuk diubah oleh AI.</p>
+        <textarea id="toneInput" placeholder="Tempelkan teks yang ingin Anda ubah nadanya di sini..." rows="5"></textarea>
+        <div class="relative mb-4">
+            <select id="toneSelector" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-blue-500">
+                <option value="">Pilih Nada...</option>
+                <option value="Formal">Formal</option>
+                <option value="Informal">Informal</option>
+                <option value="Profesional">Profesional</option>
+                <option value="Kreatif">Kreatif</option>
+                <option value="Lucu">Lucu</option>
+                <option value="Serius">Serius</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke='%234B5563' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>
+            </div>
+        </div>
+        <button id="changeToneButton">Ubah Nada Teks</button>
+        <div id="toneLoadingIndicator" class="loading-indicator text-center">Memuat...</div>
+        <div id="toneErrorMessage" class="error-message text-center"></div>
+        <div id="toneGeneratedTextBox" class="generated-text-box">
+            Teks dengan nada baru akan muncul di sini.
+        </div>
+    </div>
 
-The text describes the philosophy and origins behind the name of an art studio called **"PAMISMOYO"**.
+    <script>
+        // --- Kreator Teks Logic ---
+        const promptInput = document.getElementById('promptInput');
+        const generateButton = document.getElementById('generateButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const generatedTextBox = document.getElementById('generatedTextBox');
+        const errorMessage = document.getElementById('errorMessage');
 
-**1. Meaning and Origin of "PAMISMOYO":**
-*   The name "PAMISMOYO" is derived from the **Shona language** (from Africa), where it means **"in the heart."**
-*   It also draws a connection to **"ISMOYO,"** an alternative name for **Semar**, a revered and wise mythological figure (ponokawan) in Javanese wayang (shadow puppet theatre).
+        generateButton.addEventListener('click', async () => {
+            const prompt = promptInput.value.trim();
+            if (!prompt) {
+                errorMessage.textContent = 'Mohon masukkan prompt untuk menghasilkan teks.';
+                generatedTextBox.textContent = '';
+                return;
+            }
 
-**2. Studio Philosophy (Inspired by "PAMISMOYO" and Semar):**
-*   **Art from the Heart:** The studio's name signifies their hope that their artistic creations will always grow "from within the heart" – meaning with sincerity, dedication, and based on love and compassion.
-*   **Service and Inclusivity (Inspired by Semar):** Semar (Ismoyo) is depicted as a mentor and guide for both common people ("kawulo alit") and even the gods (Pandawas). This inspires the studio to:
-    *   Serve and connect with people from all walks of life and social backgrounds.
-    *   Uphold high moral and ethical standards: **"Unggah-ungguh"** (manners/etiquette), **"adat"** (customs), **"adab"** (moral conduct), ethics, morality, and humanity.
-    *   All these principles are firmly rooted in **"KETUHANAN YANG MAHA ESA"** (Belief in the One Supreme God).
-*   **Motto:** "Nyumareke Semar didalam hati dalam berkarya seni" translates to **"May Semar be present in our hearts as we create art."** This encapsulates their aspiration to embody Semar's wisdom, humility, and service in their artistic endeavors.
+            generatedTextBox.textContent = '';
+            errorMessage.textContent = '';
+            loadingIndicator.style.display = 'block';
+            generateButton.disabled = true;
 
-**3. Meaning of "JATI":**
-*   **Geographical Location:** "JATI" is a part of "Jatisarono," the village where the art studio is physically located.
-*   **Deeper Meaning:** "Jati" also signifies a process of **self-reflection and introspection** to understand and interpret the external world. This personal exploration is also grounded in faith and devotion to God.
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
-**4. Conclusion:**
-*   The description ends with a humble request for prayers, support, guidance, and constructive criticism, along with an expression of gratitude for any help received.
-*   It concludes with **"SALAM BUDAYA"** (Cultural Greetings).
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas akan otomatis menyediakan API key saat runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-In essence, "PAMISMOYO" is an art studio whose name reflects a deep philosophy rooted in sincere, heartfelt creation, a commitment to serving diverse communities, upholding traditional values, and continuously seeking wisdom through self-reflection and faith, all inspired by the noble character of Semar.
-Pengubah Nada Teks ✨
-Tempelkan teks Anda di sini dan pilih nada yang diinginkan untuk diubah oleh AI.
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-Formal, Informal, Profesional, Kreatif, Lucu, Serius
+                if (!response.ok) {
+                    const errorDetail = await response.json();
+                    throw new Error(`API error: ${response.status} - ${errorDetail.error.message || 'Unknown error'}`);
+                }
 
-Kreatif
-Ubah Nada Teks
-Tentu, mari kita ubah daftar nada tersebut menjadi sesuatu yang lebih bernyawa dan imajinatif. Anggap saja setiap nada adalah goresan kuas di kanvas komunikasi:
+                const result = await response.json();
 
----
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    generatedTextBox.textContent = text;
+                } else {
+                    errorMessage.textContent = 'Tidak dapat menghasilkan teks. Struktur respons tidak terduga.';
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API for Text Creator:', error);
+                errorMessage.textContent = `Terjadi kesalahan: ${error.message}. Coba lagi nanti.`;
+            } finally {
+                loadingIndicator.style.display = 'none';
+                generateButton.disabled = false;
+            }
+        });
 
-Siapkah kau melukis kata-kata dengan rona yang berbeda? Mari kita jelajahi spektrum emosi dan ekspresi dalam setiap untaian kalimat yang bisa kau ciptakan:
+        // --- Pengubah Nada Teks Logic ---
+        const toneInput = document.getElementById('toneInput');
+        const toneSelector = document.getElementById('toneSelector');
+        const changeToneButton = document.getElementById('changeToneButton');
+        const toneLoadingIndicator = document.getElementById('toneLoadingIndicator');
+        const toneGeneratedTextBox = document.getElementById('toneGeneratedTextBox');
+        const toneErrorMessage = document.getElementById('toneErrorMessage');
 
-*   **Formal:** Anggun nan terstruktur, bak tarian balet yang penuh presisi, setiap langkah diatur dengan indah untuk kesan yang megah.
-*   **Informal:** Akrab dan santai, sehangat obrolan di beranda sore hari, mengundang senyum dan canda tanpa beban.
-*   **Profesional:** Jelas dan lugas, setajam pedang yang menembus inti persoalan, membangun kepercayaan dengan setiap argumen yang terukur.
-*   **Kreatif:** Bebas merdeka, mewarnai kanvas kosong dengan imajinasi tak terbatas, melahirkan ide-ide yang belum pernah terlintas sebelumnya, memukau dan menginspirasi.
-*   **Lucu:** Riang dan jenaka, memercikkan tawa seperti gelembung sabun yang terbang, mengubah suasana paling kaku menjadi ringan dan menyenangkan.
-*   **Serius:** Dalam dan bermakna, mengundang perenungan laksana bisikan filsuf di tengah malam, membawa bobot pemikiran yang mendalam.
+        changeToneButton.addEventListener('click', async () => {
+            const textToChange = toneInput.value.trim();
+            const selectedTone = toneSelector.value;
 
----<img src=https://drive.google.com/file/d/1-Rruv7WlEIYPNwiJI_DM2BVY698XsXm2/view?usp=drive_link
+            if (!textToChange) {
+                toneErrorMessage.textContent = 'Mohon masukkan teks yang ingin diubah nadanya.';
+                toneGeneratedTextBox.textContent = '';
+                return;
+            }
+            if (!selectedTone) {
+                toneErrorMessage.textContent = 'Mohon pilih nada yang diinginkan.';
+                toneGeneratedTextBox.textContent = '';
+                return;
+            }
+
+            toneGeneratedTextBox.textContent = '';
+            toneErrorMessage.textContent = '';
+            toneLoadingIndicator.style.display = 'block';
+            changeToneButton.disabled = true;
+
+            try {
+                const prompt = `Ubah nada teks berikut menjadi ${selectedTone}:\n\n${textToChange}`;
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorDetail = await response.json();
+                    throw new Error(`API error: ${response.status} - ${errorDetail.error.message || 'Unknown error'}`);
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    toneGeneratedTextBox.textContent = text;
+                } else {
+                    toneErrorMessage.textContent = 'Tidak dapat mengubah nada teks. Struktur respons tidak terduga.';
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API for Tone Changer:', error);
+                toneErrorMessage.textContent = `Terjadi kesalahan: ${error.message}. Coba lagi nanti.`;
+            } finally {
+                toneLoadingIndicator.style.display = 'none';
+                changeToneButton.disabled = false;
+            }
+        });
+
+        console.log("Halaman web ini berhasil dimuat!");
+    </script>
+</body>
+</html>
